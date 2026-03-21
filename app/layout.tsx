@@ -11,6 +11,8 @@ export const metadata = {
   description: "Baseball Training Platform",
   icons: {
     icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
