@@ -22,6 +22,15 @@ export default function Home() {
           </Link>
         </div>
 
+        {/* Movement / Band Work Drills */}
+        <Link href="/movement">
+          <button className="w-full bg-blue-100 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-blue-900 shadow active:scale-95 transition">
+            <h2 className="text-xl font-semibold">Today’s Movement / Band Work Drills</h2>
+            <p className="text-red-600">Med ball, water bag, PVC pipe, and band routines</p>
+          </button>
+        </Link>
+
+        {/* Throwing */}
         <Link href="/throwing">
           <button className="w-full bg-blue-900 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-white shadow active:scale-95 transition">
             <h2 className="text-xl font-semibold">Today’s Throwing</h2>
@@ -29,6 +38,7 @@ export default function Home() {
           </button>
         </Link>
 
+        {/* Lift */}
         <Link href="/lift">
           <button className="w-full bg-red-600 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-white shadow active:scale-95 transition">
             <h2 className="text-xl font-semibold">Today’s Lift</h2>
@@ -36,18 +46,13 @@ export default function Home() {
           </button>
         </Link>
 
+        {/* Arm Care */}
         <button className="w-full bg-gray-900 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-white shadow active:scale-95 transition">
           <h2 className="text-xl font-semibold">Arm Care</h2>
           <p className="text-gray-300">Bands + Recovery</p>
         </button>
 
-        <Link href="/movement">
-          <button className="w-full bg-blue-100 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-blue-900 shadow active:scale-95 transition">
-            <h2 className="text-xl font-semibold">Movement Drills</h2>
-            <p className="text-red-600">Med ball, water bag, and PVC pipe work</p>
-          </button>
-        </Link>
-
+        {/* Workout Library */}
         <Link href="/library">
           <button className="w-full bg-white border-2 border-blue-900 hover:bg-gray-100 p-5 rounded-2xl text-left text-blue-900 shadow active:scale-95 transition">
             <h2 className="text-xl font-semibold">Workout Library</h2>
