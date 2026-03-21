@@ -54,6 +54,7 @@ export default function ThrowingDayTemplate({
   return (
     <main className="min-h-screen bg-white text-black p-4">
       <div className="max-w-md mx-auto space-y-6">
+        
         <Link href="/throwing">
           <button className="text-blue-900 font-medium hover:underline">
             ← Back to Throwing
@@ -61,23 +62,41 @@ export default function ThrowingDayTemplate({
         </Link>
 
         <div>
-          <h1 className={`text-4xl tracking-wide ${titleClasses}`}>{day.toUpperCase()}</h1>
+          <h1 className={`text-4xl tracking-wide ${titleClasses}`}>
+            {day.toUpperCase()}
+          </h1>
           <p className="text-gray-600 mt-1">{intent}</p>
         </div>
 
+        {/* Progress */}
         <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow">
           <p className="text-sm">
-            <span className="font-semibold">Progress:</span> {completedCount} / {totalCount} completed
+            <span className="font-semibold">Progress:</span>{" "}
+            {completedCount} / {totalCount} completed
           </p>
         </div>
 
+        {/* BAND WORK */}
         <div className={`${accentClasses} rounded-2xl p-5 shadow space-y-4`}>
           <div>
             <h2 className="text-2xl font-semibold">Band Work</h2>
             <p className={accent === "gray" ? "text-gray-700" : "text-white/80"}>
               Complete before throwing every day
             </p>
-            <div className="mt-3 flex items-center gap-3">
+
+            <div className="mt-3 space-y-2 text-sm">
+              <p>Side Extensions – Arm Care</p>
+              <p>Forward Flies – Arm Care</p>
+              <p>Reverse Flies – Arm Care</p>
+              <p>Internal Rotation (elbow at side) – Arm Care</p>
+              <p>External Rotation (elbow at side) – Arm Care</p>
+              <p>Elevated Internal Rotation – Arm Care</p>
+              <p>Elevated External Rotation – Arm Care</p>
+              <p>Reverse Throwing – Arm Care</p>
+              <p>Forward Throwing Motion – Mechanics</p>
+            </div>
+
+            <div className="mt-4 flex items-center gap-3">
               <input
                 type="checkbox"
                 checked={bandWorkDone}
@@ -86,6 +105,7 @@ export default function ThrowingDayTemplate({
               />
               <span>Band work completed</span>
             </div>
+
             <div className="mt-3 rounded-xl bg-white/20 p-3 text-sm">
               <p className="font-semibold">Video Slot</p>
               <p>Band work video coming soon</p>
@@ -93,96 +113,67 @@ export default function ThrowingDayTemplate({
           </div>
         </div>
 
+        {/* PLYO CARE */}
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow space-y-4">
-          <div>
-            <h2 className="text-2xl text-blue-900">Plyo Care</h2>
-            <p className="text-gray-600">Separate from catch play volume</p>
-          </div>
+          <h2 className="text-2xl text-blue-900">Plyo Care</h2>
 
-          <div className="space-y-3">
-            <label className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={tapAndGoDone}
-                onChange={() => setTapAndGoDone(!tapAndGoDone)}
-                className="h-5 w-5"
-              />
-              <span>Tap and Gos — 10 throws</span>
-            </label>
+          <label className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={tapAndGoDone}
+              onChange={() => setTapAndGoDone(!tapAndGoDone)}
+            />
+            Tap and Gos — 10 throws
+          </label>
 
-            <label className="flex items-center gap-3">
-              <input
-                type="checkbox"
-                checked={stepBackDone}
-                onChange={() => setStepBackDone(!stepBackDone)}
-                className="h-5 w-5"
-              />
-              <span>Step-Back Throws — 10 throws</span>
-            </label>
-          </div>
-
-          <div className="rounded-xl bg-gray-50 p-3 text-sm">
-            <p className="font-semibold">Video Slot</p>
-            <p>Plyo Care video coming soon</p>
-          </div>
+          <label className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={stepBackDone}
+              onChange={() => setStepBackDone(!stepBackDone)}
+            />
+            Step-Back Throws — 10 throws
+          </label>
         </div>
 
+        {/* THROWING */}
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow space-y-4">
-          <div>
-            <h2 className="text-2xl text-blue-900">Catch Play / Throwing</h2>
-            <p className="text-gray-600">{catchPlayThrows} total catch play / throwing throws</p>
-          </div>
+          <h2 className="text-2xl text-blue-900">Throwing</h2>
 
-          <div className="space-y-2 text-sm">
-            <p><span className="font-semibold">Distances:</span> {distances}</p>
-            <p><span className="font-semibold">Notes:</span> {notes}</p>
-          </div>
+          <p>{catchPlayThrows} total throws</p>
+          <p><strong>Distances:</strong> {distances}</p>
+          <p><strong>Notes:</strong> {notes}</p>
 
           <label className="flex items-center gap-3">
             <input
               type="checkbox"
               checked={catchPlayDone}
               onChange={() => setCatchPlayDone(!catchPlayDone)}
-              className="h-5 w-5"
             />
-            <span>Catch play / throwing completed</span>
+            Throwing completed
           </label>
-
-          <div className="rounded-xl bg-gray-50 p-3 text-sm">
-            <p className="font-semibold">Video Slot</p>
-            <p>Catch play / throwing video coming soon</p>
-          </div>
         </div>
 
+        {/* EXTRAS */}
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow space-y-4">
-          <div>
-            <h2 className="text-2xl text-blue-900">Extras</h2>
-            <p className="text-gray-600">Additional work for the day</p>
-          </div>
+          <h2 className="text-2xl text-blue-900">Extras</h2>
 
-          <div className="space-y-3">
-            {extras.map((extra, index) => (
-              <label key={extra} className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={extrasDone[index]}
-                  onChange={() => {
-                    const updated = [...extrasDone];
-                    updated[index] = !updated[index];
-                    setExtrasDone(updated);
-                  }}
-                  className="h-5 w-5"
-                />
-                <span>{extra}</span>
-              </label>
-            ))}
-          </div>
-
-          <div className="rounded-xl bg-gray-50 p-3 text-sm">
-            <p className="font-semibold">Video Slot</p>
-            <p>Extras video coming soon</p>
-          </div>
+          {extras.map((extra, index) => (
+            <label key={index} className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                checked={extrasDone[index]}
+                onChange={() => {
+                  const updated = [...extrasDone];
+                  updated[index] = !updated[index];
+                  setExtrasDone(updated);
+                }}
+              />
+              {extra}
+            </label>
+          ))}
         </div>
+
       </div>
     </main>
   );
