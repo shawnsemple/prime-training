@@ -6,6 +6,14 @@ const bebas = Bebas_Neue({
   weight: "400",
 });
 
+export const metadata = {
+  title: "Prime Training App",
+  description: "Baseball Training Platform",
+  icons: {
+    icon: "/logo.png",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
