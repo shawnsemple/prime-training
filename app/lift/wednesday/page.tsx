@@ -1,15 +1,34 @@
 import LiftDayTemplate from "../LiftDayTemplate";
 
-export default function Wednesday() {
+export default function WednesdayLift() {
   return (
     <LiftDayTemplate
       day="Wednesday"
-      title="Sprints + Arm Care"
+      focus="Recovery / Arm Care + Conditioning — Light + Controlled + Recovery"
+      running={["25 Yard Cut Sprints – 8 reps"]}
       blocks={[
-        { name: "Block 1", exercises: ["30-20-10 Cut Sprints", "10 Yard Sprints"] },
-        { name: "Block 2", exercises: ["20 Yard Sprints", "30 Yard Sprints"] },
-        { name: "Block 3", exercises: ["Band Pull-Aparts", "Face Pulls"] },
-        { name: "Block 4", exercises: ["YTWs", "Scap Push-Ups"] },
+        {
+          title: "Block 1",
+          exercises: [
+            "Banded External Rotation – 2 x 12",
+            "Banded Internal Rotation – 2 x 12",
+            "Band Pull-Aparts – 2 x 15",
+          ],
+        },
+        {
+          title: "Block 2",
+          exercises: [
+            "Banded Wrist Flexion – 2 x 15",
+            "Banded Wrist Extension – 2 x 15",
+            "Pronations (Band or Light DB) – 2 x 12 each side",
+          ],
+        },
+      ]}
+      notes={[
+        "Keep everything light, controlled, and clean.",
+        "This is a recovery and arm care day, not a max effort day.",
+        "Focus on quality of movement and staying fresh.",
+        "Conditioning should be smooth and athletic, not all-out.",
       ]}
     />
   );
