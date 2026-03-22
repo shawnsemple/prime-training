@@ -111,12 +111,14 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Day */}
-        <div className="mb-5">
-          <h2 className="text-2xl font-bold text-blue-900">
+        {/* Day (tight spacing fix here) */}
+        <div className="mb-4">
+          <h2 className="text-2xl font-bold text-blue-900 leading-tight">
             {todayName.toUpperCase()}
           </h2>
-          <p className="text-gray-600 mt-1">{planSummary}</p>
+          <p className="text-gray-600 mt-0 text-sm">
+            {planSummary}
+          </p>
         </div>
 
         {/* Movement */}
