@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
 const dayNames = [
@@ -91,40 +90,9 @@ function getTodayInfo() {
 export default function Home() {
   const supabase = createClient();
 
-  const [loading, setLoading] = useState(true);
-  const [userReady, setUserReady] = useState(false);
-
-  useEffect(() => {
-    async function checkUser() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-
-      if (!user) {
-        window.location.replace("/login");
-        return;
-      }
-
-      setUserReady(true);
-      setLoading(false);
-    }
-
-    checkUser();
-  }, [supabase]);
-
   async function handleLogout() {
     await supabase.auth.signOut();
     window.location.replace("/login");
-  }
-
-  if (loading || !userReady) {
-    return (
-      <main className="min-h-screen bg-white text-black px-4 py-4">
-        <div className="max-w-md mx-auto">
-          <p className="text-blue-900 font-semibold">Loading...</p>
-        </div>
-      </main>
-    );
   }
 
   const { todayName, planSummary, movementText, throwingText, liftText } =
