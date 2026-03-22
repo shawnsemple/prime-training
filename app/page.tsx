@@ -16,37 +16,78 @@ function getTodayInfo() {
   const todayIndex = new Date().getDay();
   const todayName = dayNames[todayIndex];
 
+  if (todayName === "Monday") {
+    return {
+      todayName,
+      planSummary: "Your Monday training is ready below.",
+      movementText: "Med Ball (2 LB Only)",
+      throwingText: "Low Intent",
+      liftText: "Upper Body Power",
+    };
+  }
+
+  if (todayName === "Tuesday") {
+    return {
+      todayName,
+      planSummary: "Your Tuesday training is ready below.",
+      movementText: "Water Bag (Circle)",
+      throwingText: "Medium Intent",
+      liftText: "Lower Body Power",
+    };
+  }
+
+  if (todayName === "Wednesday") {
+    return {
+      todayName,
+      planSummary: "Your Wednesday training is ready below.",
+      movementText: "No scheduled movement drills today",
+      throwingText: "High Intent",
+      liftText: "Sprints + Arm Care",
+    };
+  }
+
+  if (todayName === "Thursday") {
+    return {
+      todayName,
+      planSummary: "Your Thursday training is ready below.",
+      movementText: "Water Bag (Log)",
+      throwingText: "Low / Recovery",
+      liftText: "Upper Body Explosive + Mobility",
+    };
+  }
+
+  if (todayName === "Friday") {
+    return {
+      todayName,
+      planSummary: "Your Friday training is ready below.",
+      movementText: "PVC Pipe",
+      throwingText: "Medium / Feel Good",
+      liftText: "Lower Body Explosive + Mobility",
+    };
+  }
+
   if (todayName === "Saturday") {
     return {
       todayName,
       planSummary: "Compete and recover.",
-      throwingText: "Open full throwing week",
-      movementText: "Open full movement week",
-      liftText: "Optional recovery",
-    };
-  }
-
-  if (todayName === "Sunday") {
-    return {
-      todayName,
-      planSummary: "Recovery day. Full off unless you need Saturday recovery work.",
-      throwingText: "Open full throwing week",
-      movementText: "Open full movement week",
-      liftText: "Off day",
+      movementText: "Recovery + Mobility + Arm Care",
+      throwingText: "Game Warm-Up / High Intent",
+      liftText: "Optional Recovery",
     };
   }
 
   return {
     todayName,
-    planSummary: `Your ${todayName} training is ready below.`,
-    throwingText: "Open Monday–Saturday throwing days",
-    movementText: "Open Monday–Saturday movement days",
-    liftText: "Open weekly lifting program",
+    planSummary:
+      "Recovery day. Full off unless you need to finish Saturday recovery work.",
+    movementText: "Off Day / Saturday Recovery If Needed",
+    throwingText: "Off or Very Light Catch",
+    liftText: "Off Day",
   };
 }
 
 export default function Home() {
-  const { todayName, planSummary, throwingText, movementText, liftText } =
+  const { todayName, planSummary, movementText, throwingText, liftText } =
     getTodayInfo();
 
   return (
