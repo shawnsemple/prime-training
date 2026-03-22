@@ -1,40 +1,77 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
+  const supabase = createClient();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setMessage(error.message);
+      setLoading(false);
+      return;
+    }
+
+    window.location.href = "/";
+  }
+
   return (
     <main className="min-h-screen bg-white text-black p-4">
       <div className="max-w-md mx-auto space-y-6">
-        <Link href="/">
-          <button className="text-blue-900 hover:underline">
-            ← Back
-          </button>
-        </Link>
-
         <h1 className="text-4xl text-blue-900">LOGIN</h1>
 
-        <div className="bg-gray-100 rounded-2xl p-5 shadow space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block mb-1 font-semibold">Email</label>
+            <label className="block text-sm font-medium mb-1">Email</label>
             <input
               type="email"
               placeholder="Enter email"
-              className="w-full border border-gray-300 rounded-xl p-3"
+              className="w-full border border-gray-300 p-3 rounded-xl"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-semibold">Password</label>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
               type="password"
               placeholder="Enter password"
-              className="w-full border border-gray-300 rounded-xl p-3"
+              className="w-full border border-gray-300 p-3 rounded-xl"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
-          <button className="w-full bg-blue-900 text-white rounded-xl p-3 hover:opacity-90">
-            Sign In
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-900 text-white p-3 rounded-xl disabled:opacity-60"
+          >
+            {loading ? "Signing In..." : "Sign In"}
           </button>
-        </div>
+        </form>
+
+        {message && (
+          <p className="text-red-600 text-sm">{message}</p>
+        )}
       </div>
     </main>
   );
