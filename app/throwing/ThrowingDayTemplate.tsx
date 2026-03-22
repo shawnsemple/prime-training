@@ -22,6 +22,7 @@ export default function ThrowingDayTemplate({
   notes,
   extras,
 }: ThrowingDayTemplateProps) {
+  const [dynamicDone, setDynamicDone] = useState(false);
   const [tapAndGoDone, setTapAndGoDone] = useState(false);
   const [stepBackDone, setStepBackDone] = useState(false);
   const [catchPlayDone, setCatchPlayDone] = useState(false);
@@ -42,12 +43,13 @@ export default function ThrowingDayTemplate({
       : "text-blue-900";
 
   const completedCount =
+    Number(dynamicDone) +
     Number(tapAndGoDone) +
     Number(stepBackDone) +
     Number(catchPlayDone) +
     extrasDone.filter(Boolean).length;
 
-  const totalCount = 3 + extras.length;
+  const totalCount = 4 + extras.length;
 
   return (
     <main className="min-h-screen bg-white text-black p-4">
@@ -72,7 +74,43 @@ export default function ThrowingDayTemplate({
           </p>
         </div>
 
-        {/* PLYO CARE */}
+        <div className={`${accentClasses} rounded-2xl p-5 shadow space-y-4`}>
+          <div>
+            <h2 className="text-2xl font-semibold">Dynamic Warm-Up</h2>
+            <p className={accent === "gray" ? "text-gray-700" : "text-white/80"}>
+              Complete before throwing every day
+            </p>
+          </div>
+
+          <div className="space-y-2 text-sm">
+            <p>Jog / Skip Progression</p>
+            <p>High Knees</p>
+            <p>Butt Kicks</p>
+            <p>Leg Swings</p>
+            <p>Lunge Stretch</p>
+            <p>Hamstring Sweep</p>
+            <p>Quad Pull</p>
+            <p>Inchworms</p>
+            <p>Hip Openers</p>
+            <p>Shoulder / T-Spine Mobility</p>
+          </div>
+
+          <label className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={dynamicDone}
+              onChange={() => setDynamicDone(!dynamicDone)}
+              className="h-5 w-5"
+            />
+            <span>Dynamic warm-up completed</span>
+          </label>
+
+          <div className="rounded-xl bg-white/20 p-3 text-sm">
+            <p className="font-semibold">Video Slot</p>
+            <p>Dynamic warm-up video coming soon</p>
+          </div>
+        </div>
+
         <div className={`${accentClasses} rounded-2xl p-5 shadow space-y-4`}>
           <div>
             <h2 className="text-2xl font-semibold">Plyo Care</h2>
@@ -107,7 +145,6 @@ export default function ThrowingDayTemplate({
           </div>
         </div>
 
-        {/* THROWING */}
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow space-y-4">
           <div>
             <h2 className="text-2xl text-blue-900">Throwing</h2>
@@ -139,7 +176,6 @@ export default function ThrowingDayTemplate({
           </div>
         </div>
 
-        {/* EXTRAS */}
         <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow space-y-4">
           <div>
             <h2 className="text-2xl text-blue-900">Extras</h2>

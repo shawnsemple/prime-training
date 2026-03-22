@@ -9,9 +9,7 @@ export default function MondayPage() {
       catchPlayThrows={30}
       distances="60 ft, 75 ft, 90 ft"
       notes="Easy build-up day. Focus on rhythm, feel, and staying loose."
-      extras={[
-        "Light recovery throwing focus",
-      ]}
+      extras={["Light recovery throwing focus"]}
     />
   );
 }

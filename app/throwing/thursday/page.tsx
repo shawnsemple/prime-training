@@ -9,9 +9,7 @@ export default function ThursdayPage() {
       catchPlayThrows={30}
       distances="60 ft, 75 ft, 90 ft"
       notes="Flush the arm. Keep it light and focus on feel."
-      extras={[
-        "Light drill work if needed",
-      ]}
+      extras={["Light drill work if needed"]}
     />
   );
 }

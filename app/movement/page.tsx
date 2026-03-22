@@ -25,6 +25,12 @@ const movementDays = [
     href: "/movement/friday",
     color: "bg-blue-100 text-blue-900",
   },
+  {
+    name: "Saturday",
+    type: "Recovery + Mobility + Arm Care",
+    href: "/movement/saturday",
+    color: "bg-gray-300 text-blue-900",
+  },
 ];
 
 export default function MovementPage() {
@@ -40,7 +46,7 @@ export default function MovementPage() {
         <h1 className="text-4xl text-blue-900">MOVEMENT DRILLS</h1>
 
         <p className="text-gray-600">
-          Weekly movement drill work built around med balls, water bags, and PVC pipe routines.
+          Weekly movement work including med ball, water bag, PVC, and Saturday recovery sessions.
         </p>
 
         <div className="space-y-4">
@@ -50,7 +56,13 @@ export default function MovementPage() {
                 className={`w-full rounded-2xl p-5 text-left shadow hover:opacity-90 active:scale-95 transition ${day.color}`}
               >
                 <h2 className="text-2xl font-semibold">{day.name}</h2>
-                <p className={day.color.includes("text-white") ? "text-white/80" : "text-gray-700"}>
+                <p
+                  className={
+                    day.color.includes("text-white")
+                      ? "text-white/80"
+                      : "text-gray-700"
+                  }
+                >
                   {day.type}
                 </p>
               </button>
