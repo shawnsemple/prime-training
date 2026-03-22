@@ -27,7 +27,7 @@ export default function LoginPage() {
       return;
     }
 
-    window.location.href = "/";
+    window.location.replace("/");
   }
 
   return (
@@ -69,9 +69,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {message && (
-          <p className="text-red-600 text-sm">{message}</p>
-        )}
+        {message && <p className="text-red-600 text-sm">{message}</p>}
       </div>
     </main>
   );
