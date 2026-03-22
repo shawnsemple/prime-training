@@ -101,7 +101,8 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-black px-4 py-4">
       <div className="max-w-md mx-auto">
-        {/* Header */}
+
+        {/* HEADER */}
         <div className="flex items-center justify-between gap-3 mb-6">
           <h1
             className="flex-1 min-w-0 text-[30px] font-extrabold tracking-[0.12em] text-blue-900 leading-none"
@@ -120,7 +121,7 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Day */}
+        {/* DAY */}
         <div className="mb-4">
           <h2 className="text-2xl font-bold text-blue-900 leading-tight">
             {todayName.toUpperCase()}
@@ -128,9 +129,9 @@ export default function Home() {
           <p className="text-gray-600 text-sm">{planSummary}</p>
         </div>
 
-        {/* Movement */}
+        {/* MOVEMENT */}
         <Link href="/movement">
-          <button className="w-full bg-blue-100 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-blue-900 shadow active:scale-95 transition">
+          <button className="w-full bg-blue-100 p-5 rounded-2xl text-left mb-4 text-blue-900 shadow">
             <h2 className="text-xl font-semibold">
               Today’s Movement / Band Work
             </h2>
@@ -138,25 +139,25 @@ export default function Home() {
           </button>
         </Link>
 
-        {/* Throwing */}
+        {/* THROWING */}
         <Link href="/throwing">
-          <button className="w-full bg-blue-900 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-white shadow active:scale-95 transition">
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
             <h2 className="text-xl font-semibold">Today’s Throwing</h2>
             <p className="text-blue-200">{throwingText}</p>
           </button>
         </Link>
 
-        {/* Lift */}
+        {/* LIFT */}
         <Link href="/lift">
-          <button className="w-full bg-red-600 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-white shadow active:scale-95 transition">
+          <button className="w-full bg-red-600 p-5 rounded-2xl text-left mb-4 text-white shadow">
             <h2 className="text-xl font-semibold">Today’s Lift</h2>
             <p className="text-red-100">{liftText}</p>
           </button>
         </Link>
 
-        {/* Arm Care */}
+        {/* ARM CARE */}
         <Link href="/arm-care">
-          <button className="w-full bg-gray-900 hover:opacity-90 p-5 rounded-2xl text-left mb-4 text-white shadow active:scale-95 transition">
+          <button className="w-full bg-gray-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
             <h2 className="text-xl font-semibold">Arm Care</h2>
             <p className="text-gray-300">
               Complete any 5 recovery exercises
@@ -164,15 +165,23 @@ export default function Home() {
           </button>
         </Link>
 
-        {/* Library */}
+        {/* 🔥 MENTAL GAME (NOW MATCHES SIZE + COLOR) */}
+        <Link href="/mental-game">
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
+            <h2 className="text-xl font-semibold">The Mental Game</h2>
+          </button>
+        </Link>
+
+        {/* LIBRARY */}
         <Link href="/library">
-          <button className="w-full bg-white border-2 border-blue-900 hover:bg-gray-100 p-5 rounded-2xl text-left text-blue-900 shadow active:scale-95 transition">
+          <button className="w-full bg-white border-2 border-blue-900 p-5 rounded-2xl text-left text-blue-900 shadow">
             <h2 className="text-xl font-semibold">Workout Library</h2>
             <p className="text-red-600">
               All drills, lifts, throwing, and long toss
             </p>
           </button>
         </Link>
+
       </div>
     </main>
   );
