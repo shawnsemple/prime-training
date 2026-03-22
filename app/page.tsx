@@ -93,6 +93,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-white text-black px-4 py-4">
       <div className="max-w-md mx-auto">
+
         {/* Header */}
         <div className="flex items-center justify-between gap-3 mb-6">
           <h1
@@ -111,7 +112,7 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Day (tight spacing fix here) */}
+        {/* Day */}
         <div className="mb-4">
           <h2 className="text-2xl font-bold text-blue-900 leading-tight">
             {todayName.toUpperCase()}
@@ -166,6 +167,7 @@ export default function Home() {
             </p>
           </button>
         </Link>
+
       </div>
     </main>
   );
