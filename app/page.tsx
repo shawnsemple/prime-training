@@ -1,88 +1,210 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+type DayInfo = {
+  todayName: string;
+  planSummary: string;
+  movementTitle: string;
+  movementText: string;
+  throwingTitle: string;
+  throwingText: string;
+  liftText: string;
+};
+
+function getTodayInfo(date: Date): DayInfo {
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const todayName = dayNames[date.getDay()];
+
+  if (todayName === "Monday") {
+    return {
+      todayName,
+      planSummary: "Your Monday training is ready below.",
+      movementTitle: "TODAY'S MOVEMENT",
+      movementText: "Dynamic Warm-Up + Med Ball (2 LB Only)",
+      throwingTitle: "TODAY'S THROWING / BAND WORK",
+      throwingText: "Low Intent",
+      liftText: "Upper Body Power",
+    };
+  }
+
+  if (todayName === "Tuesday") {
+    return {
+      todayName,
+      planSummary: "Your Tuesday training is ready below.",
+      movementTitle: "TODAY'S MOVEMENT",
+      movementText: "Dynamic Warm-Up + Water Bag (Circle)",
+      throwingTitle: "TODAY'S THROWING / BAND WORK",
+      throwingText: "Medium Intent",
+      liftText: "Lower Body Power",
+    };
+  }
+
+  if (todayName === "Wednesday") {
+    return {
+      todayName,
+      planSummary: "Your Wednesday training is ready below.",
+      movementTitle: "TODAY'S MOVEMENT",
+      movementText: "Dynamic Warm-Up + Recovery / Light Movement",
+      throwingTitle: "TODAY'S THROWING / BAND WORK",
+      throwingText: "High Intent",
+      liftText: "Recovery / Arm Care + Conditioning",
+    };
+  }
+
+  if (todayName === "Thursday") {
+    return {
+      todayName,
+      planSummary: "Your Thursday training is ready below.",
+      movementTitle: "TODAY'S MOVEMENT",
+      movementText: "Dynamic Warm-Up + Water Bag (Log)",
+      throwingTitle: "TODAY'S THROWING / BAND WORK",
+      throwingText: "Low / Recovery",
+      liftText: "Upper Body Explosive",
+    };
+  }
+
+  if (todayName === "Friday") {
+    return {
+      todayName,
+      planSummary: "Your Friday training is ready below.",
+      movementTitle: "TODAY'S MOVEMENT",
+      movementText: "Dynamic Warm-Up + PVC Pipe",
+      throwingTitle: "TODAY'S THROWING / BAND WORK",
+      throwingText: "Medium / Feel Good",
+      liftText: "Lower Body Explosive",
+    };
+  }
+
+  if (todayName === "Saturday") {
+    return {
+      todayName,
+      planSummary: "Compete and recover.",
+      movementTitle: "TODAY'S MOVEMENT",
+      movementText: "Dynamic Warm-Up + Recovery Mobility",
+      throwingTitle: "TODAY'S THROWING / BAND WORK",
+      throwingText: "Game Warm-Up / High Intent",
+      liftText: "Optional Recovery",
+    };
+  }
+
+  return {
+    todayName,
+    planSummary:
+      "Recovery day. Full off unless you need to finish Saturday recovery work.",
+    movementTitle: "TODAY'S MOVEMENT",
+    movementText: "Dynamic Warm-Up + Off Day / Saturday Recovery If Needed",
+    throwingTitle: "TODAY'S THROWING / BAND WORK",
+    throwingText: "Off or Very Light Catch",
+    liftText: "Off Day",
+  };
+}
 
 export default function Home() {
-  return (
-    <main className="min-h-screen bg-white px-4 py-6">
-      <div className="max-w-md mx-auto">
+  const supabase = createClient();
+  const [dayInfo, setDayInfo] = useState<DayInfo | null>(null);
 
-        {/* HEADER */}
-        <div className="flex justify-between items-center mb-6">
+  useEffect(() => {
+    setDayInfo(getTodayInfo(new Date()));
+  }, []);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    window.location.replace("/login");
+  }
+
+  if (!dayInfo) {
+    return (
+      <main className="min-h-screen bg-white text-black px-4 py-4">
+        <div className="max-w-md mx-auto">
+          <p className="text-blue-900">Loading...</p>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="min-h-screen bg-white text-black px-4 py-4">
+      <div className="max-w-md mx-auto">
+        <div className="flex items-center justify-between gap-3 mb-6">
           <h1
-            className="text-[28px] font-extrabold tracking-[0.12em] text-blue-900"
+            className="flex-1 min-w-0 text-[30px] font-extrabold tracking-[0.12em] text-blue-900 leading-none"
             style={{ WebkitTextStroke: "0.5px #dc2626" }}
           >
             PRIME TRAINING
           </h1>
 
-          <button className="border border-blue-900 text-blue-900 px-4 py-1 rounded-full text-sm">
+          <button
+            onClick={handleLogout}
+            className="shrink-0 border border-gray-400 text-gray-600 px-3 py-2 rounded-xl text-sm"
+          >
             LOGOUT
           </button>
         </div>
 
-        {/* DAY */}
         <div className="mb-4">
-          <h2 className="text-xl font-bold text-blue-900">SUNDAY</h2>
-          <p className="text-gray-600 text-sm">
-            RECOVERY DAY. FULL OFF UNLESS YOU NEED TO FINISH SATURDAY RECOVERY WORK.
-          </p>
+          <h2 className="text-2xl font-bold text-blue-900">
+            {dayInfo.todayName.toUpperCase()}
+          </h2>
+          <p className="text-gray-600 text-sm">{dayInfo.planSummary}</p>
         </div>
 
-        {/* MOVEMENT */}
         <Link href="/movement">
-          <div className="bg-blue-100 p-5 rounded-2xl shadow mb-4">
-            <h3 className="font-bold text-blue-900">
-              TODAY'S MOVEMENT / BAND WORK
-            </h3>
-            <p className="text-red-600 text-sm">
-              OFF DAY / SATURDAY RECOVERY IF NEEDED
-            </p>
-          </div>
+          <button className="w-full bg-blue-100 p-5 rounded-2xl text-left mb-4 text-blue-900 shadow">
+            <h2 className="text-xl font-semibold">{dayInfo.movementTitle}</h2>
+            <p className="text-red-600 mt-2">{dayInfo.movementText}</p>
+          </button>
         </Link>
 
-        {/* THROWING */}
         <Link href="/throwing">
-          <div className="bg-blue-900 p-5 rounded-2xl shadow mb-4 text-white">
-            <h3 className="font-bold">TODAY'S THROWING</h3>
-            <p className="text-sm">OFF OR VERY LIGHT CATCH</p>
-          </div>
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
+            <h2 className="text-xl font-semibold">{dayInfo.throwingTitle}</h2>
+            <p className="text-blue-200 mt-2">{dayInfo.throwingText}</p>
+          </button>
         </Link>
 
-        {/* LIFT */}
         <Link href="/lift">
-          <div className="bg-red-600 p-5 rounded-2xl shadow mb-4 text-white">
-            <h3 className="font-bold">TODAY'S LIFT</h3>
-            <p className="text-sm">OFF DAY</p>
-          </div>
+          <button className="w-full bg-red-600 p-5 rounded-2xl text-left mb-4 text-white shadow">
+            <h2 className="text-xl font-semibold">TODAY'S LIFT</h2>
+            <p className="text-red-100 mt-2">{dayInfo.liftText}</p>
+          </button>
         </Link>
 
-        {/* ✅ FIXED ARM CARE (DARK AGAIN) */}
         <Link href="/arm-care">
-          <div className="bg-gray-900 p-5 rounded-2xl shadow mb-4 text-white">
-            <h3 className="font-bold">ARM CARE</h3>
-            <p className="text-sm">COMPLETE ANY 5 RECOVERY EXERCISES</p>
-          </div>
+          <button className="w-full bg-gray-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
+            <h2 className="text-xl font-semibold">ARM CARE</h2>
+            <p className="text-gray-300 mt-2">
+              COMPLETE ANY 5 RECOVERY EXERCISES
+            </p>
+          </button>
         </Link>
 
-        {/* MENTAL GAME */}
         <Link href="/mental-game">
-          <div className="bg-blue-900 p-5 rounded-2xl shadow mb-4 text-white">
-            <h3 className="font-bold">THE MENTAL GAME</h3>
-            <p className="text-sm opacity-80">COMPLETE 3 SESSIONS THIS WEEK</p>
-          </div>
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
+            <h2 className="text-xl font-semibold">THE MENTAL GAME</h2>
+            <p className="text-blue-200 mt-2">COMPLETE 3 SESSIONS THIS WEEK</p>
+          </button>
         </Link>
 
-        {/* LIBRARY */}
         <Link href="/library">
-          <div className="border-2 border-blue-900 p-5 rounded-2xl shadow text-blue-900">
-            <h3 className="font-bold">WORKOUT LIBRARY</h3>
-            <p className="text-red-600 text-sm">
+          <button className="w-full bg-white border-2 border-blue-900 p-5 rounded-2xl text-left text-blue-900 shadow">
+            <h2 className="text-xl font-semibold">WORKOUT LIBRARY</h2>
+            <p className="text-red-600 mt-2">
               ALL DRILLS, LIFTS, THROWING, AND LONG TOSS
             </p>
-          </div>
+          </button>
         </Link>
-
       </div>
     </main>
   );
