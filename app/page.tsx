@@ -92,7 +92,7 @@ function getTodayInfo(date: Date): DayInfo {
       todayName,
       planSummary: "Compete and recover.",
       movementTitle: "TODAY'S MOVEMENT",
-      movementText: "Dynamic Warm-Up + Recovery Mobility",
+      movementText: "Game Day Dynamic Warm-Up",
       throwingTitle: "TODAY'S THROWING / BAND WORK",
       throwingText: "Game Warm-Up / High Intent",
       liftText: "Optional Recovery",
@@ -193,7 +193,18 @@ export default function Home() {
         <Link href="/mental-game">
           <button className="w-full bg-blue-900 p-5 rounded-2xl text-left mb-4 text-white shadow">
             <h2 className="text-xl font-semibold">THE MENTAL GAME</h2>
-            <p className="text-blue-200 mt-2">COMPLETE 3 SESSIONS THIS WEEK</p>
+            <p className="text-blue-200 mt-2">
+              MONDAY / WEDNESDAY / FRIDAY
+            </p>
+          </button>
+        </Link>
+
+        <Link href="/nutrition">
+          <button className="w-full bg-blue-100 p-5 rounded-2xl text-left mb-4 text-blue-900 shadow">
+            <h2 className="text-xl font-semibold">NUTRITION</h2>
+            <p className="text-red-600 mt-2">
+              HYDRATION, CALORIES, PROTEIN, AND FOOD RULES
+            </p>
           </button>
         </Link>
 
