@@ -1,15 +1,31 @@
 import ThrowingDayTemplate from "../ThrowingDayTemplate";
 
-export default function FridayPage() {
+const bandWork = [
+  "Side Extensions",
+  "Forward Flies",
+  "Reverse Flies",
+  "Internal Rotation",
+  "External Rotation",
+  "Elevated Internal",
+  "Elevated External",
+  "Reverse Throwing",
+  "Forward Motion",
+];
+
+export default function FridayThrowingPage() {
   return (
     <ThrowingDayTemplate
       day="Friday"
-      intent="Medium / Feel Good"
-      accent="red"
-      catchPlayThrows={40}
-      distances="60 ft, 75 ft, 90 ft, 120 ft"
-      notes="Feel sharp and confident going into the weekend."
-      extras={["Compression Throws", "Light Command Work"]}
+      intent="Medium / Feel Good Throwing"
+      bandWork={bandWork}
+      throwingItems={[
+        "Catch Play",
+        "60 ft",
+        "75 ft",
+        "90 ft",
+        "120 ft",
+        "Feel good before weekend",
+      ]}
     />
   );
 }

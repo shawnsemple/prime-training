@@ -1,82 +1,63 @@
+"use client";
+
 import Link from "next/link";
 
-const throwingDays = [
-  {
-    name: "Monday",
-    intent: "Low Intent",
-    href: "/throwing/monday",
-    color: "bg-gray-100 border border-gray-200 text-red-600",
-  },
-  {
-    name: "Tuesday",
-    intent: "Medium Intent",
-    href: "/throwing/tuesday",
-    color: "bg-gray-100 border border-gray-200 text-blue-900",
-  },
-  {
-    name: "Wednesday",
-    intent: "High Intent",
-    href: "/throwing/wednesday",
-    color: "bg-blue-900 text-white",
-  },
-  {
-    name: "Thursday",
-    intent: "Low / Recovery",
-    href: "/throwing/thursday",
-    color: "bg-gray-100 border border-gray-200 text-red-600",
-  },
-  {
-    name: "Friday",
-    intent: "Medium / Feel Good",
-    href: "/throwing/friday",
-    color: "bg-red-600 text-white",
-  },
-  {
-    name: "Saturday",
-    intent: "Game Warm-Up / High Intent",
-    href: "/throwing/saturday",
-    color: "bg-gray-900 text-white",
-  },
-];
-
-export default function ThrowingPage() {
+export default function ThrowingHomePage() {
   return (
-    <main className="min-h-screen bg-white text-black p-4">
-      <div className="max-w-md mx-auto space-y-6">
+    <main className="min-h-screen bg-white px-4 py-4">
+      <div className="max-w-md mx-auto space-y-4">
         <Link href="/">
-          <button className="text-blue-900 font-medium hover:underline">
-            ← Back
+          <button className="text-blue-900 text-sm">← Back</button>
+        </Link>
+
+        <h1
+          className="text-[28px] font-extrabold tracking-[0.12em] text-blue-900"
+          style={{ WebkitTextStroke: "0.5px #dc2626" }}
+        >
+          THROWING PROGRAM
+        </h1>
+
+        <Link href="/throwing/monday">
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">MONDAY</h2>
+            <p className="text-blue-200 mt-1">BAND WORK + LOW INTENT</p>
           </button>
         </Link>
 
-        <h1 className="text-4xl tracking-wide text-blue-900">
-          THROWING PROGRESSION
-        </h1>
+        <Link href="/throwing/tuesday">
+          <button className="w-full bg-red-600 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">TUESDAY</h2>
+            <p className="text-red-100 mt-1">BAND WORK + MEDIUM INTENT</p>
+          </button>
+        </Link>
 
-        <p className="text-gray-600">
-          Click the day to see the full dynamic warm-up, plyo care, throwing progression, and extras.
-        </p>
+        <Link href="/throwing/wednesday">
+          <button className="w-full bg-gray-900 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">WEDNESDAY</h2>
+            <p className="text-gray-300 mt-1">BAND WORK + HIGH INTENT</p>
+          </button>
+        </Link>
 
-        <div className="space-y-4">
-          {throwingDays.map((day) => (
-            <Link key={day.name} href={day.href}>
-              <button
-                className={`w-full rounded-2xl p-5 text-left shadow hover:opacity-90 active:scale-95 transition ${day.color}`}
-              >
-                <h2 className="text-2xl font-semibold">{day.name}</h2>
-                <p
-                  className={
-                    day.color.includes("text-white")
-                      ? "text-white/80"
-                      : "text-gray-600"
-                  }
-                >
-                  {day.intent}
-                </p>
-              </button>
-            </Link>
-          ))}
-        </div>
+        <Link href="/throwing/thursday">
+          <button className="w-full bg-blue-100 p-5 rounded-2xl text-left text-blue-900 shadow">
+            <h2 className="text-2xl font-bold">THURSDAY</h2>
+            <p className="text-blue-700 mt-1">BAND WORK + RECOVERY THROWING</p>
+          </button>
+        </Link>
+
+        <Link href="/throwing/friday">
+          <button className="w-full bg-red-100 p-5 rounded-2xl text-left text-red-600 shadow">
+            <h2 className="text-2xl font-bold">FRIDAY</h2>
+            <p className="text-red-500 mt-1">BAND WORK + FEEL GOOD THROWING</p>
+          </button>
+        </Link>
+
+        <Link href="/throwing/saturday">
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">SATURDAY</h2>
+            <p className="text-blue-200 mt-1">BAND WORK + GAME WARM-UP</p>
+          </button>
+        </Link>
       </div>
     </main>
   );

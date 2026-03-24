@@ -4,12 +4,23 @@ export default function MondayMovementPage() {
   return (
     <MovementDayTemplate
       day="Monday"
-      title="Med Ball (2 LB Only)"
-      accent="blue"
-      drills={[
-        "Pitching Position MB Throw – Movement",
-        "Step Behind MB Throw – Movement",
-        "Forward Hop MB Throw – Movement",
+      movementTitle="Med Ball (2 LB Only)"
+      warmup={[
+        "Jog or skip",
+        "Knee hugs",
+        "Quad pulls",
+        "Walking lunges",
+        "Side lunges",
+        "Leg swings",
+        "Arm circles",
+        "A-skips",
+        "High knees",
+        "Butt kicks",
+      ]}
+      movementItems={[
+        "Pitching Position MB Throw",
+        "Step Behind MB Throw",
+        "Forward Hop MB Throw",
       ]}
     />
   );

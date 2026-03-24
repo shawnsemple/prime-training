@@ -3,123 +3,75 @@
 import Link from "next/link";
 import { useState } from "react";
 
-type MovementDayTemplateProps = {
+type Props = {
   day: string;
-  title: string;
-  accent: "blue" | "red" | "gray";
-  drills: string[];
+  movementTitle: string;
+  warmup: string[];
+  movementItems: string[];
 };
 
 export default function MovementDayTemplate({
   day,
-  title,
-  accent,
-  drills,
-}: MovementDayTemplateProps) {
-  const [bandDone, setBandDone] = useState(false);
-  const [completed, setCompleted] = useState<boolean[]>(drills.map(() => false));
-
-  const titleColor =
-    accent === "blue"
-      ? "text-blue-900"
-      : accent === "red"
-      ? "text-red-600"
-      : "text-gray-900";
-
-  const cardColor =
-    accent === "blue"
-      ? "bg-blue-900 text-white"
-      : accent === "red"
-      ? "bg-red-600 text-white"
-      : "bg-gray-900 text-white";
-
-  const doneCount = Number(bandDone) + completed.filter(Boolean).length;
-  const totalCount = 1 + drills.length;
+  movementTitle,
+  warmup,
+  movementItems,
+}: Props) {
+  const [warmupComplete, setWarmupComplete] = useState(false);
+  const [movementComplete, setMovementComplete] = useState(false);
 
   return (
-    <main className="min-h-screen bg-white text-black p-4">
-      <div className="max-w-md mx-auto space-y-6">
+    <main className="min-h-screen bg-white px-4 py-4">
+      <div className="max-w-md mx-auto space-y-5">
         <Link href="/movement">
-          <button className="text-blue-900 font-medium hover:underline">
-            ← Back to Movement
-          </button>
+          <button className="text-blue-900 text-sm">← Back</button>
         </Link>
 
         <div>
-          <h1 className={`text-4xl ${titleColor}`}>{day.toUpperCase()}</h1>
-          <p className="text-gray-600 mt-1">{title}</p>
+          <h1
+            className="text-[28px] font-extrabold tracking-[0.12em] text-blue-900"
+            style={{ WebkitTextStroke: "0.5px #dc2626" }}
+          >
+            TODAY&apos;S MOVEMENT
+          </h1>
+          <p className="text-gray-600 text-sm mt-2">{day.toUpperCase()}</p>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow">
-          <p className="text-sm">
-            <span className="font-semibold">Progress:</span> {doneCount} / {totalCount} completed
-          </p>
-        </div>
+        <div className="bg-blue-100 p-5 rounded-2xl shadow">
+          <h2 className="text-lg font-bold text-blue-900">DYNAMIC WARM-UP</h2>
 
-        {/* BAND WORK */}
-        <div className={`${cardColor} rounded-2xl p-5 shadow space-y-4`}>
-          <div>
-            <h2 className="text-2xl font-semibold">Band Work</h2>
-            <p className="text-white/80">Complete before movement and throwing</p>
-          </div>
-
-          <div className="space-y-2 text-sm">
-            <p>Side Extensions – Arm Care</p>
-            <p>Forward Flies – Arm Care</p>
-            <p>Reverse Flies – Arm Care</p>
-            <p>Internal Rotation (elbow at side) – Arm Care</p>
-            <p>External Rotation (elbow at side) – Arm Care</p>
-            <p>Elevated Internal Rotation – Arm Care</p>
-            <p>Elevated External Rotation – Arm Care</p>
-            <p>Reverse Throwing – Arm Care</p>
-            <p>Forward Throwing Motion – Mechanics</p>
-          </div>
-
-          <label className="flex items-center gap-3">
-            <input
-              type="checkbox"
-              checked={bandDone}
-              onChange={() => setBandDone(!bandDone)}
-              className="h-5 w-5"
-            />
-            <span>Band work completed</span>
-          </label>
-
-          <div className="rounded-xl bg-white/20 p-3 text-sm">
-            <p className="font-semibold">Video Slot</p>
-            <p>Band work video coming soon</p>
-          </div>
-        </div>
-
-        {/* MOVEMENT DRILLS */}
-        <div className={`${cardColor} rounded-2xl p-5 shadow space-y-4`}>
-          <div>
-            <h2 className="text-2xl font-semibold">Movement Drills</h2>
-            <p className="text-white/80">Complete all listed drills for the day</p>
-          </div>
-
-          <div className="space-y-3">
-            {drills.map((drill, index) => (
-              <label key={drill} className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={completed[index]}
-                  onChange={() => {
-                    const updated = [...completed];
-                    updated[index] = !updated[index];
-                    setCompleted(updated);
-                  }}
-                  className="h-5 w-5"
-                />
-                <span>{drill}</span>
-              </label>
+          <div className="mt-3 space-y-2 text-sm text-blue-900">
+            {warmup.map((item, i) => (
+              <p key={i}>• {item}</p>
             ))}
           </div>
 
-          <div className="rounded-xl bg-white/20 p-3 text-sm">
-            <p className="font-semibold">Video Slot</p>
-            <p>Movement drill videos coming soon</p>
+          <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
+            <input
+              type="checkbox"
+              checked={warmupComplete}
+              onChange={() => setWarmupComplete(!warmupComplete)}
+            />
+            DYNAMIC WARM-UP COMPLETED
+          </label>
+        </div>
+
+        <div className="bg-blue-900 p-5 rounded-2xl shadow text-white">
+          <h2 className="text-lg font-bold">{movementTitle.toUpperCase()}</h2>
+
+          <div className="mt-3 space-y-2 text-sm text-blue-200">
+            {movementItems.map((item, i) => (
+              <p key={i}>• {item}</p>
+            ))}
           </div>
+
+          <label className="mt-4 flex items-center gap-2 text-sm text-white">
+            <input
+              type="checkbox"
+              checked={movementComplete}
+              onChange={() => setMovementComplete(!movementComplete)}
+            />
+            MOVEMENT COMPLETED
+          </label>
         </div>
       </div>
     </main>

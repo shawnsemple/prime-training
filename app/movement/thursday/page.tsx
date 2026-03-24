@@ -4,12 +4,23 @@ export default function ThursdayMovementPage() {
   return (
     <MovementDayTemplate
       day="Thursday"
-      title="Water Bag (Log)"
-      accent="gray"
-      drills={[
-        "Power Stance Rotations – Movement",
-        "Power Stance Step Back Rotations – Movement",
-        "Kickstand Rotations – Movement",
+      movementTitle="Water Bag (Log)"
+      warmup={[
+        "Jog or skip",
+        "Knee hugs",
+        "Quad pulls",
+        "Walking lunges",
+        "Side lunges",
+        "Leg swings",
+        "Arm circles",
+        "A-skips",
+        "High knees",
+        "Butt kicks",
+      ]}
+      movementItems={[
+        "Power Stance Rotations",
+        "Power Stance Step Back Rotations",
+        "Kickstand Rotations",
       ]}
     />
   );

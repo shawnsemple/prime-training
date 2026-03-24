@@ -1,10 +1,10 @@
 import MovementDayTemplate from "../MovementDayTemplate";
 
-export default function TuesdayMovementPage() {
+export default function WednesdayMovementPage() {
   return (
     <MovementDayTemplate
-      day="Tuesday"
-      movementTitle="Water Bag (Circle)"
+      day="Wednesday"
+      movementTitle="Recovery / Light Movement"
       warmup={[
         "Jog or skip",
         "Knee hugs",
@@ -18,9 +18,9 @@ export default function TuesdayMovementPage() {
         "Butt kicks",
       ]}
       movementItems={[
-        "Center Chaos",
-        "Frontside Chaos",
-        "Overhead Chaos",
+        "Light mobility flow",
+        "Easy lower half movement",
+        "Reset and recovery work",
       ]}
     />
   );

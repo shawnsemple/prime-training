@@ -1,74 +1,63 @@
+"use client";
+
 import Link from "next/link";
 
-const movementDays = [
-  {
-    name: "Monday",
-    type: "Med Ball (2 LB Only)",
-    href: "/movement/monday",
-    color: "bg-blue-900 text-white",
-  },
-  {
-    name: "Tuesday",
-    type: "Water Bag (Circle)",
-    href: "/movement/tuesday",
-    color: "bg-red-600 text-white",
-  },
-  {
-    name: "Thursday",
-    type: "Water Bag (Log)",
-    href: "/movement/thursday",
-    color: "bg-gray-900 text-white",
-  },
-  {
-    name: "Friday",
-    type: "PVC Pipe",
-    href: "/movement/friday",
-    color: "bg-blue-100 text-blue-900",
-  },
-  {
-    name: "Saturday",
-    type: "Recovery + Mobility + Arm Care",
-    href: "/movement/saturday",
-    color: "bg-gray-300 text-blue-900",
-  },
-];
-
-export default function MovementPage() {
+export default function MovementHomePage() {
   return (
-    <main className="min-h-screen bg-white text-black p-4">
-      <div className="max-w-md mx-auto space-y-6">
+    <main className="min-h-screen bg-white px-4 py-4">
+      <div className="max-w-md mx-auto space-y-4">
         <Link href="/">
-          <button className="text-blue-900 font-medium hover:underline">
-            ← Back
+          <button className="text-blue-900 text-sm">← Back</button>
+        </Link>
+
+        <h1
+          className="text-[28px] font-extrabold tracking-[0.12em] text-blue-900"
+          style={{ WebkitTextStroke: "0.5px #dc2626" }}
+        >
+          MOVEMENT PROGRAM
+        </h1>
+
+        <Link href="/movement/monday">
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">MONDAY</h2>
+            <p className="text-blue-200 mt-1">DYNAMIC WARM-UP + MED BALL</p>
           </button>
         </Link>
 
-        <h1 className="text-4xl text-blue-900">MOVEMENT DRILLS</h1>
+        <Link href="/movement/tuesday">
+          <button className="w-full bg-red-600 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">TUESDAY</h2>
+            <p className="text-red-100 mt-1">DYNAMIC WARM-UP + WATER BAG</p>
+          </button>
+        </Link>
 
-        <p className="text-gray-600">
-          Weekly movement work including med ball, water bag, PVC, and Saturday recovery sessions.
-        </p>
+        <Link href="/movement/wednesday">
+          <button className="w-full bg-gray-900 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">WEDNESDAY</h2>
+            <p className="text-gray-300 mt-1">DYNAMIC WARM-UP + RECOVERY</p>
+          </button>
+        </Link>
 
-        <div className="space-y-4">
-          {movementDays.map((day) => (
-            <Link key={day.name} href={day.href}>
-              <button
-                className={`w-full rounded-2xl p-5 text-left shadow hover:opacity-90 active:scale-95 transition ${day.color}`}
-              >
-                <h2 className="text-2xl font-semibold">{day.name}</h2>
-                <p
-                  className={
-                    day.color.includes("text-white")
-                      ? "text-white/80"
-                      : "text-gray-700"
-                  }
-                >
-                  {day.type}
-                </p>
-              </button>
-            </Link>
-          ))}
-        </div>
+        <Link href="/movement/thursday">
+          <button className="w-full bg-blue-100 p-5 rounded-2xl text-left text-blue-900 shadow">
+            <h2 className="text-2xl font-bold">THURSDAY</h2>
+            <p className="text-blue-700 mt-1">DYNAMIC WARM-UP + WATER BAG</p>
+          </button>
+        </Link>
+
+        <Link href="/movement/friday">
+          <button className="w-full bg-red-100 p-5 rounded-2xl text-left text-red-600 shadow">
+            <h2 className="text-2xl font-bold">FRIDAY</h2>
+            <p className="text-red-500 mt-1">DYNAMIC WARM-UP + PVC PIPE</p>
+          </button>
+        </Link>
+
+        <Link href="/movement/saturday">
+          <button className="w-full bg-blue-900 p-5 rounded-2xl text-left text-white shadow">
+            <h2 className="text-2xl font-bold">SATURDAY</h2>
+            <p className="text-blue-200 mt-1">GAME DAY DYNAMIC WARM-UP</p>
+          </button>
+        </Link>
       </div>
     </main>
   );
