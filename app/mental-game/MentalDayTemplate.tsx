@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import useTrackedChecklist from "@/hooks/useTrackedChecklist";
 
 type Prompt = {
   title: string;
@@ -27,34 +27,24 @@ export default function MentalDayTemplate({
   sectionTwoItems,
   prompts,
 }: Props) {
-  const storageKey = useMemo(
-    () => `prime-mental-${day.toLowerCase()}`,
-    [day]
-  );
+  const pageKey = `mental-${day.toLowerCase()}`;
+  const { checks, ready, toggleCheck } = useTrackedChecklist(pageKey, [
+    "section-one-complete",
+    "section-two-complete",
+    "journal-complete",
+    "session-1",
+    "session-2",
+    "session-3",
+  ]);
 
-  const [sectionOneDone, setSectionOneDone] = useState(false);
-  const [sectionTwoDone, setSectionTwoDone] = useState(false);
-  const [journalDone, setJournalDone] = useState(false);
-  const [weekChecks, setWeekChecks] = useState<boolean[]>([false, false, false]);
-
-  useEffect(() => {
-    const saved =
-      typeof window !== "undefined" ? localStorage.getItem(storageKey) : null;
-
-    if (saved) {
-      try {
-        setWeekChecks(JSON.parse(saved));
-      } catch {
-        setWeekChecks([false, false, false]);
-      }
-    }
-  }, [storageKey]);
-
-  function toggleWeekCheck(index: number) {
-    const updated = [...weekChecks];
-    updated[index] = !updated[index];
-    setWeekChecks(updated);
-    localStorage.setItem(storageKey, JSON.stringify(updated));
+  if (!ready) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-4">
+        <div className="max-w-md mx-auto">
+          <p className="text-blue-900">Loading...</p>
+        </div>
+      </main>
+    );
   }
 
   return (
@@ -87,8 +77,8 @@ export default function MentalDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={sectionOneDone}
-              onChange={() => setSectionOneDone(!sectionOneDone)}
+              checked={!!checks["section-one-complete"]}
+              onChange={() => toggleCheck("section-one-complete")}
             />
             {sectionOneTitle.toUpperCase()} COMPLETED
           </label>
@@ -105,8 +95,8 @@ export default function MentalDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-white">
             <input
               type="checkbox"
-              checked={sectionTwoDone}
-              onChange={() => setSectionTwoDone(!sectionTwoDone)}
+              checked={!!checks["section-two-complete"]}
+              onChange={() => toggleCheck("section-two-complete")}
             />
             {sectionTwoTitle.toUpperCase()} COMPLETED
           </label>
@@ -126,8 +116,8 @@ export default function MentalDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={journalDone}
-              onChange={() => setJournalDone(!journalDone)}
+              checked={!!checks["journal-complete"]}
+              onChange={() => toggleCheck("journal-complete")}
             />
             JOURNAL COMPLETED
           </label>
@@ -136,16 +126,32 @@ export default function MentalDayTemplate({
         <div className="bg-gray-900 p-5 rounded-2xl shadow text-white">
           <h2 className="text-lg font-bold">COMPLETE 3 THIS WEEK</h2>
           <div className="mt-3 space-y-3">
-            {weekChecks.map((checked, i) => (
-              <label key={i} className="flex items-center gap-3 text-sm">
-                <input
-                  type="checkbox"
-                  checked={checked}
-                  onChange={() => toggleWeekCheck(i)}
-                />
-                SESSION {i + 1}
-              </label>
-            ))}
+            <label className="flex items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                checked={!!checks["session-1"]}
+                onChange={() => toggleCheck("session-1")}
+              />
+              SESSION 1
+            </label>
+
+            <label className="flex items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                checked={!!checks["session-2"]}
+                onChange={() => toggleCheck("session-2")}
+              />
+              SESSION 2
+            </label>
+
+            <label className="flex items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                checked={!!checks["session-3"]}
+                onChange={() => toggleCheck("session-3")}
+              />
+              SESSION 3
+            </label>
           </div>
         </div>
       </div>

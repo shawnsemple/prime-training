@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import useTrackedChecklist from "@/hooks/useTrackedChecklist";
 
 type Props = {
   day: string;
@@ -16,8 +16,21 @@ export default function MovementDayTemplate({
   warmup,
   movementItems,
 }: Props) {
-  const [warmupComplete, setWarmupComplete] = useState(false);
-  const [movementComplete, setMovementComplete] = useState(false);
+  const pageKey = `movement-${day.toLowerCase()}`;
+  const { checks, ready, toggleCheck } = useTrackedChecklist(pageKey, [
+    "warmup-complete",
+    "movement-complete",
+  ]);
+
+  if (!ready) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-4">
+        <div className="max-w-md mx-auto">
+          <p className="text-blue-900">Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-white px-4 py-4">
@@ -48,8 +61,8 @@ export default function MovementDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={warmupComplete}
-              onChange={() => setWarmupComplete(!warmupComplete)}
+              checked={!!checks["warmup-complete"]}
+              onChange={() => toggleCheck("warmup-complete")}
             />
             DYNAMIC WARM-UP COMPLETED
           </label>
@@ -67,8 +80,8 @@ export default function MovementDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-white">
             <input
               type="checkbox"
-              checked={movementComplete}
-              onChange={() => setMovementComplete(!movementComplete)}
+              checked={!!checks["movement-complete"]}
+              onChange={() => toggleCheck("movement-complete")}
             />
             MOVEMENT COMPLETED
           </label>

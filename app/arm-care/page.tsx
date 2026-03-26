@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import useTrackedChecklist from "@/hooks/useTrackedChecklist";
 
-const armCareExercises = [
+const exercises = [
   "Reverse Throws – Arm Care",
   "Band Pull-Aparts – Arm Care",
   "External Rotation – Arm Care",
@@ -18,86 +18,67 @@ const armCareExercises = [
   "Supinations – Arm Care",
 ];
 
-const DAILY_GOAL = 5;
-
 export default function ArmCarePage() {
-  const [completed, setCompleted] = useState<boolean[]>(
-    armCareExercises.map(() => false)
+  const itemKeys = exercises.map((_, index) => `exercise-${index + 1}`);
+  const { checks, ready, toggleCheck } = useTrackedChecklist(
+    "arm-care",
+    itemKeys
   );
 
-  const doneCount = completed.filter(Boolean).length;
+  if (!ready) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-4">
+        <div className="max-w-md mx-auto">
+          <p className="text-blue-900">Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
-  const toggleExercise = (index: number) => {
-    const updated = [...completed];
-
-    // Prevent going over 5
-    if (!updated[index] && doneCount >= DAILY_GOAL) return;
-
-    updated[index] = !updated[index];
-    setCompleted(updated);
-  };
+  const completedCount = itemKeys.filter((key) => checks[key]).length;
 
   return (
-    <main className="min-h-screen bg-white text-black p-4">
-      <div className="max-w-md mx-auto space-y-6">
-        
+    <main className="min-h-screen bg-white px-4 py-4">
+      <div className="max-w-md mx-auto space-y-5">
         <Link href="/">
-          <button className="text-blue-900 font-medium hover:underline">
-            ← Back
-          </button>
+          <button className="text-blue-900 text-sm">← Back</button>
         </Link>
 
         <div>
-          <h1 className="text-4xl text-blue-900">ARM CARE</h1>
-          <p className="text-gray-600 mt-1">
-            Complete <span className="font-semibold">5 exercises daily</span> to keep your arm healthy and recovered.
+          <h1
+            className="text-[28px] font-extrabold tracking-[0.12em] text-blue-900"
+            style={{ WebkitTextStroke: "0.5px #dc2626" }}
+          >
+            ARM CARE
+          </h1>
+          <p className="text-gray-600 text-sm mt-2">
+            COMPLETE ANY 5 RECOVERY EXERCISES
           </p>
         </div>
 
-        {/* Progress */}
-        <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4 shadow">
-          <p className="text-sm font-semibold">
-            Progress: {doneCount} / {DAILY_GOAL}
+        <div className="bg-gray-900 p-5 rounded-2xl shadow text-white">
+          <h2 className="text-lg font-bold">RECOVERY CHECKLIST</h2>
+          <p className="text-sm text-gray-300 mt-1">
+            COMPLETED: {completedCount} / {exercises.length}
           </p>
 
-          {doneCount === DAILY_GOAL && (
-            <p className="text-green-600 text-sm mt-1">
-              ✅ Daily arm care complete
-            </p>
-          )}
-        </div>
+          <div className="mt-4 space-y-3">
+            {exercises.map((exercise, index) => {
+              const key = `exercise-${index + 1}`;
 
-        {/* Exercise List */}
-        <div className="rounded-2xl bg-gray-900 text-white p-5 shadow space-y-4">
-          <h2 className="text-2xl font-semibold">Choose Any 5</h2>
-
-          <div className="space-y-3">
-            {armCareExercises.map((exercise, index) => (
-              <label key={exercise} className="flex items-center gap-3">
-                <input
-                  type="checkbox"
-                  checked={completed[index]}
-                  onChange={() => toggleExercise(index)}
-                  className="h-5 w-5"
-                />
-                <span
-                  className={`${
-                    completed[index] ? "line-through text-gray-400" : ""
-                  }`}
-                >
+              return (
+                <label key={key} className="flex items-center gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={!!checks[key]}
+                    onChange={() => toggleCheck(key)}
+                  />
                   {exercise}
-                </span>
-              </label>
-            ))}
+                </label>
+              );
+            })}
           </div>
         </div>
-
-        {/* Video Slot */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow space-y-3">
-          <h2 className="text-2xl text-blue-900 font-semibold">Video Slot</h2>
-          <p className="text-gray-600">Arm care videos coming soon</p>
-        </div>
-
       </div>
     </main>
   );

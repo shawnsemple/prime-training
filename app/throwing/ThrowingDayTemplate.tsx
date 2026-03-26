@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import useTrackedChecklist from "@/hooks/useTrackedChecklist";
 
 type Props = {
   day: string;
@@ -16,14 +16,26 @@ export default function ThrowingDayTemplate({
   bandWork,
   throwingItems,
 }: Props) {
-  const [bandComplete, setBandComplete] = useState(false);
-  const [plyoComplete, setPlyoComplete] = useState(false);
-  const [throwingComplete, setThrowingComplete] = useState(false);
+  const pageKey = `throwing-${day.toLowerCase()}`;
+  const { checks, ready, toggleCheck } = useTrackedChecklist(pageKey, [
+    "band-complete",
+    "plyo-complete",
+    "throwing-complete",
+  ]);
+
+  if (!ready) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-4">
+        <div className="max-w-md mx-auto">
+          <p className="text-blue-900">Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-white px-4 py-4">
       <div className="max-w-md mx-auto space-y-5">
-
         <Link href="/throwing">
           <button className="text-blue-900 text-sm">← Back</button>
         </Link>
@@ -38,7 +50,6 @@ export default function ThrowingDayTemplate({
           <p className="text-gray-600 text-sm mt-2">{day.toUpperCase()}</p>
         </div>
 
-        {/* BAND WORK */}
         <div className="bg-blue-100 p-5 rounded-2xl shadow">
           <h2 className="text-lg font-bold text-blue-900">BAND WORK</h2>
 
@@ -51,36 +62,34 @@ export default function ThrowingDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={bandComplete}
-              onChange={() => setBandComplete(!bandComplete)}
+              checked={!!checks["band-complete"]}
+              onChange={() => toggleCheck("band-complete")}
             />
             BAND WORK COMPLETED
           </label>
         </div>
 
-        {/* PLYO CARE */}
         <div className="bg-blue-900 p-5 rounded-2xl shadow text-white">
-          <h2 className="text-lg font-bold">Plyo Care</h2>
+          <h2 className="text-lg font-bold">PLYO CARE</h2>
           <p className="text-sm text-blue-200 mt-1">
-            Complete before throwing
+            COMPLETE BEFORE THROWING
           </p>
 
           <div className="mt-3 space-y-2 text-sm text-blue-200">
-            <p>• Tap & Go — 10 throws</p>
+            <p>• Tap &amp; Go — 10 throws</p>
             <p>• Step-Back Throws — 10 throws</p>
           </div>
 
           <label className="mt-4 flex items-center gap-2 text-sm text-white">
             <input
               type="checkbox"
-              checked={plyoComplete}
-              onChange={() => setPlyoComplete(!plyoComplete)}
+              checked={!!checks["plyo-complete"]}
+              onChange={() => toggleCheck("plyo-complete")}
             />
             PLYO CARE COMPLETED
           </label>
         </div>
 
-        {/* THROWING */}
         <div className="bg-blue-100 p-5 rounded-2xl shadow">
           <h2 className="text-lg font-bold text-blue-900">
             {intent.toUpperCase()}
@@ -95,13 +104,12 @@ export default function ThrowingDayTemplate({
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={throwingComplete}
-              onChange={() => setThrowingComplete(!throwingComplete)}
+              checked={!!checks["throwing-complete"]}
+              onChange={() => toggleCheck("throwing-complete")}
             />
             THROWING COMPLETED
           </label>
         </div>
-
       </div>
     </main>
   );

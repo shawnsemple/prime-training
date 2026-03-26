@@ -1,14 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import useTrackedChecklist from "@/hooks/useTrackedChecklist";
 
 export default function NutritionPage() {
-  const [hydrationDone, setHydrationDone] = useState(false);
-  const [caloriesDone, setCaloriesDone] = useState(false);
-  const [proteinDone, setProteinDone] = useState(false);
-  const [foodDone, setFoodDone] = useState(false);
-  const [avoidDone, setAvoidDone] = useState(false);
+  const { checks, ready, toggleCheck } = useTrackedChecklist("nutrition", [
+    "hydration",
+    "calories",
+    "protein",
+    "food-rules",
+    "avoid-list",
+  ]);
+
+  if (!ready) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-4">
+        <div className="max-w-md mx-auto">
+          <p className="text-blue-900">Loading...</p>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-white px-4 py-4">
@@ -40,8 +52,8 @@ export default function NutritionPage() {
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={hydrationDone}
-              onChange={() => setHydrationDone(!hydrationDone)}
+              checked={!!checks["hydration"]}
+              onChange={() => toggleCheck("hydration")}
             />
             HYDRATION CHECKED
           </label>
@@ -57,8 +69,8 @@ export default function NutritionPage() {
           <label className="mt-4 flex items-center gap-2 text-sm text-white">
             <input
               type="checkbox"
-              checked={caloriesDone}
-              onChange={() => setCaloriesDone(!caloriesDone)}
+              checked={!!checks["calories"]}
+              onChange={() => toggleCheck("calories")}
             />
             CALORIES CHECKED
           </label>
@@ -74,8 +86,8 @@ export default function NutritionPage() {
           <label className="mt-4 flex items-center gap-2 text-sm text-white">
             <input
               type="checkbox"
-              checked={proteinDone}
-              onChange={() => setProteinDone(!proteinDone)}
+              checked={!!checks["protein"]}
+              onChange={() => toggleCheck("protein")}
             />
             PROTEIN CHECKED
           </label>
@@ -93,8 +105,8 @@ export default function NutritionPage() {
           <label className="mt-4 flex items-center gap-2 text-sm text-white">
             <input
               type="checkbox"
-              checked={foodDone}
-              onChange={() => setFoodDone(!foodDone)}
+              checked={!!checks["food-rules"]}
+              onChange={() => toggleCheck("food-rules")}
             />
             FOOD RULES CHECKED
           </label>
@@ -111,8 +123,8 @@ export default function NutritionPage() {
           <label className="mt-4 flex items-center gap-2 text-sm text-blue-900">
             <input
               type="checkbox"
-              checked={avoidDone}
-              onChange={() => setAvoidDone(!avoidDone)}
+              checked={!!checks["avoid-list"]}
+              onChange={() => toggleCheck("avoid-list")}
             />
             AVOID LIST CHECKED
           </label>
